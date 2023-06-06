@@ -6,8 +6,11 @@ import time
 
 chromedriver = 'chromedriver.exe'
 options = webdriver.ChromeOptions()
-options.add_argument('ignore-certificate-errors')
+options.add_argument("--disable-blink-features=AutomationControlled")
+options.add_experimental_option("excludeSwitches", ["enable-automation"])
+options.add_experimental_option("useAutomationExtension", False) 
 driver = webdriver.Chrome(options=options)
+driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
 chains = ActionChains(driver)
 driver.get('https://tixcraft.com/activity/detail/23_atc')
 time.sleep(5)
